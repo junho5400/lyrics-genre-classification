@@ -26,17 +26,8 @@ results/
 # Large binaries
 *.npz
 
-# LaTeX build artifacts
-*.aux
-*.log
-*.out
-*.toc
-*.bbl
-*.blg
-*.synctex.gz
-*.fdb_latexmk
-*.fls
-paper/main.pdf
+# Paper source and build artifacts (not tracked in this repo)
+paper/
 
 # Environment / secrets
 .env

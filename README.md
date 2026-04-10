@@ -63,10 +63,6 @@ Across the 20 directed genre pairs, RoBERTa's per-pair confusion rate and the co
 ├── notebooks/
 │   ├── 01_eda.ipynb                 # Exploratory data analysis
 │   └── 02_results.ipynb             # All results and figures
-├── paper/
-│   ├── main.tex                     # LaTeX paper
-│   ├── references.bib               # Bibliography
-│   └── figures/                     # Figures for paper
 ├── scripts/run_all.sh               # One-command reproduction
 ├── requirements.txt
 ├── LICENSE
@@ -182,18 +178,6 @@ All models are fine-tuned with **LoRA** (rank 16, &alpha; = 32, dropout 0.1) via
 | T5-small      | Encoder-decoder | 60M         | 0.59M (LoRA only, text-to-text mode) | q, v (encoder + decoder)  |
 
 Training uses AdamW with a cosine schedule and 10% linear warmup, maximum sequence length 512, batch size 64, learning rate 2&times;10<sup>-4</sup>, weight decay 0.01, gradient clipping at 1.0, and early stopping with patience 3 on validation macro F1. The interpretability RoBERTa additionally uses expanded LoRA targets (query / key / value), a lower learning rate (1&times;10<sup>-4</sup>), gradient accumulation (effective batch size 64), FP16 mixed precision, and random contiguous word cropping as augmentation.
-
-## Paper
-
-The LaTeX source for the paper is in [`paper/`](paper/). To build:
-
-```bash
-cd paper
-pdflatex main.tex
-bibtex main
-pdflatex main.tex
-pdflatex main.tex
-```
 
 ## Limitations
 
