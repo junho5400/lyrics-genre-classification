@@ -1,0 +1,53 @@
+data:
+  dataset_name: "sebastiandizon/genius-song-lyrics"
+  genres: ["rap", "pop", "rock", "country", "rb"]
+  samples_per_genre: 2000
+  samples_per_genre_override: {pop: 2500}  # optional; genres not listed use samples_per_genre
+  max_chars: 2000
+  train_ratio: 0.8
+  val_ratio: 0.1
+  test_ratio: 0.1
+  seed: 42
+  processed_dir: "data/processed"
+
+training:
+  max_seq_len: 512
+  batch_size: 64  # A100: 64 or 128
+  learning_rate: 2.0e-4
+  weight_decay: 0.01
+  epochs: 10
+  warmup_ratio: 0.1
+  early_stopping_patience: 3
+  gradient_accumulation_steps: 1
+  fp16: false
+  label_smoothing: 0.0
+  augment: false
+
+lora:
+  rank: 16
+  alpha: 32
+  dropout: 0.1
+  target_modules_encoder: ["query", "value"]
+  target_modules_decoder: ["c_attn"]
+  target_modules_t5: ["q", "v"]
+
+models:
+  roberta:
+    name: "roberta-base"
+    type: "encoder"
+  gpt2:
+    name: "gpt2"
+    type: "decoder"
+  t5:
+    name: "t5-small"
+    type: "encoder-decoder"
+
+evaluation:
+  metrics: ["accuracy", "f1_macro", "f1_weighted", "per_class_f1"]
+
+label_map:
+  rap: 0
+  pop: 1
+  rock: 2
+  country: 3
+  rb: 4
